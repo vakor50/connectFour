@@ -1,6 +1,8 @@
 var player = true;
 var board = [];
 
+$('#curPlayer').append('Player ' + (player ? 1 : 2) + '\'s turn.');
+
 for (var i = 0; i < 6; i++) {
 	$('#board').append('<tr id="row' + i + '">');
 	board[i] = [0, 0, 0, 0, 0, 0, 0];
@@ -9,7 +11,7 @@ for (var i = 0; i < 6; i++) {
 		$('#row' + i).append('<td id="cell' + i + '-' + j + '" value="'+ j +'" onclick="dropIn(' + j + ')"></td>');
 	}
 }
-console.log(board);
+// console.log(board);
 $("td").hover(
 	function() {
 		// console.log("in");
@@ -31,14 +33,16 @@ $("td").hover(
 
 function detectHoriz(row, col, pnum) {
 		var sequence = 0;
-	for (var x = col - 3; x < col + 3; x++) {
+	for (var x = col - 3; x <= col + 3; x++) {
+		// console.log(row + " - " + x);
 		if(x >= 0 && x < 7 && board[row][x] == pnum) {
-			// console.log(x);
+			
 			sequence++;
 		} else {
 			sequence == 0;
 		}
 	}
+	// console.log(sequence);
 	if (sequence >= 4) {
 		return true;
 	} else {
@@ -49,9 +53,9 @@ function detectHoriz(row, col, pnum) {
 function detectVert(row, col, pnum) {
 	var sequence = 0;
 	for (var x = row - 3; x <= row + 3; x++) {
-
+		// console.log(x + " - " + col);
 		if(x >= 0 && x < 6 && board[x][col] == pnum) {
-			// console.log(x + " - " + col);
+			
 			sequence++;
 			
 		} else {
@@ -152,14 +156,30 @@ function dropIn(col) {
 				board[m][n] = 3;
 			}
 		}
-		console.log("WINNER!!!!");
+		// console.log("WINNER!!!!");
+		$('#output').append('<h3 id="winner">Player ' + ((player) ? 1 : 2) + ' wins the game!');
+		$('#output').append('<button id="resetButton" onclick="replay()" class="btn btn-primary">Play Again?</button>');
 	}
-
-
-
 
 	// switch players if tile was dropped
 	if(dropped == true) {
+		$('#curPlayer').empty();
 		player = !player;
+		$('#curPlayer').append('Player ' + (player ? 1 : 2) + '\'s turn.');
+		
+	}
+}
+
+// $('#resetButton').click(function() {
+function replay() {
+	console.log("reset?");
+	$('#resetButton').remove();
+	$('#winner').remove();
+
+	for (var a = 0; a < 6; a++) {
+		for (var b = 0; b < 7; b++) {
+			$('#cell' + a + '-' + b).empty();
+			board[a][b] = 0;
+		}
 	}
 }

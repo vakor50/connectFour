@@ -28,55 +28,52 @@
 <body>
 	<div class="container">
 		<!-- Navigation -->
-		<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<nav class="navbar navbar-custom navbar-static-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
 						Menu <i class="fa fa-bars"></i>
 					</button>
-					<a class="navbar-brand page-scroll" href="#page-top">
+					<!-- <a class="navbar-brand page-scroll" href="#page-top">
 						Start Bootstrap
-					</a>
+					</a> -->
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-					<ul class="nav navbar-nav">
-						<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-						<li class="hidden">
-							<a href="#page-top"></a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#about">About</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#download">Download</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#contact">Contact</a>
-						</li>
-					</ul>
+				<div class="collapse navbar-collapse navbar-right">
+					<p class="navbar-text">
+						<a class="page-scroll title" href="https://github.com/vakor50/connectFour">Source</a>
+					</p>
+					<p class="navbar-text">
+						<a class="page-scroll title" href="https://vakor50.github.io/">Contact</a>
+					</p>
 				</div>
 				<!-- /.navbar-collapse -->
 			</div>
 			<!-- /.container -->
 		</nav>
 
+		<div class="row">
+			<div id="sector1" class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 ">
 
-		<div id="sector1">
-			<table class="table table-bordered table-responsive">
-				<tbody id="board">
+				<h1 class="product">
+					Connect Four
+				</h1>
 
-				</tbody>
-			</table>
+				<table class="table table-bordered table-responsive">
+					<tbody id="board">
 
-			<div id="sector1">
-				<h2 id="curPlayer"></h2>
-				<br>
-			</div>
-			<hr>
-			<div id="output">
+					</tbody>
+				</table>
 
+				<div id="sector1">
+					<h2 id="curPlayer" class="product"></h2>
+					<br>
+				</div>
+				<!-- <hr> -->
+				<div id="output">
+					
+				</div>
 			</div>
 		</div>
 	</div>

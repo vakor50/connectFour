@@ -8,7 +8,7 @@ for (var i = 0; i < 6; i++) {
 	board[i] = [0, 0, 0, 0, 0, 0, 0];
 	
 	for (var j = 0; j < 7; j++) {
-		$('#row' + i).append('<td id="cell' + i + '-' + j + '" value="'+ j +'" onclick="dropIn(' + j + ')"></td>');
+		$('#row' + i).append('<td class="btn-lg" id="cell' + i + '-' + j + '" value="'+ j +'" onclick="dropIn(' + j + ')"></td>');
 	}
 }
 // console.log(board);
@@ -18,7 +18,7 @@ $("td").hover(
 
 		for (var k = 0; k < 6; k++) {
 			var c = $('#cell' + k + '-' + $(this).attr('value'));
-			c.css('background-color', '#eee');
+			c.css('background-color', 'rgba(255, 255, 255, 0.2)');
 		}
 	}, 
 	function() {
@@ -26,7 +26,7 @@ $("td").hover(
 		
 		for (var k = 0; k < 6; k++) {
 			var c = $('#cell' + k + '-' + $(this).attr('value'));
-			c.css('background-color', 'white');
+			c.css('background-color', '#0E0B16');
 		}
 	}
 );
@@ -140,9 +140,9 @@ function dropIn(col) {
 			c = col;
 			p = player ? 1 : 2;
 			if (player)
-				$('#cell'+m+'-'+col).append('X');
+				$('#cell'+m+'-'+col).append('<span class="glyphicon glyphicon-remove white" aria-hidden="true"></span>');
 			else {
-				$('#cell'+m+'-'+col).append('O');
+				$('#cell'+m+'-'+col).append('<span class="glyphicon glyphicon-record white" aria-hidden="true"></span>');
 			}
 			dropped = true;
 			break;
@@ -157,22 +157,31 @@ function dropIn(col) {
 			}
 		}
 		// console.log("WINNER!!!!");
-		$('#output').append('<h3 id="winner">Player ' + ((player) ? 1 : 2) + ' wins the game!');
-		$('#output').append('<button id="resetButton" onclick="replay()" class="btn btn-primary">Play Again?</button>');
+		// $('#winner').append('Player ' + ((player) ? 1 : 2) + ' wins the game!');
+		$('#output').fadeOut(function() {
+  			$(this).append('<hr><h3 id="winner" class="product">Player ' + ((player) ? 1 : 2) + ' wins the game!</h3>').fadeIn();
+  			$(this).append('<button id="resetButton" onclick="replay()" class="btn">Play Again?</button>');
+
+		});
+
 	}
 
 	// switch players if tile was dropped
 	if(dropped == true) {
-		$('#curPlayer').empty();
+		$('#curPlayer').fadeOut(function() {
+  			$(this).text('Player ' + (player ? 1 : 2) + '\'s turn.').fadeIn();
+		});
+
+		// $('#curPlayer').empty();
 		player = !player;
-		$('#curPlayer').append('Player ' + (player ? 1 : 2) + '\'s turn.');
+		// $('#curPlayer').append('Player ' + (player ? 1 : 2) + '\'s turn.');
 		
 	}
 }
 
 // $('#resetButton').click(function() {
 function replay() {
-	console.log("reset?");
+	// console.log("reset?");
 	$('#resetButton').remove();
 	$('#winner').remove();
 

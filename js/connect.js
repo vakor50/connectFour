@@ -26,7 +26,7 @@ $("td").hover(
 		
 		for (var k = 0; k < 6; k++) {
 			var c = $('#cell' + k + '-' + $(this).attr('value'));
-			c.css('background-color', '#0E0B16');
+			c.css('background-color', 'rgba(14, 11, 22, 0.7)');
 		}
 	}
 );

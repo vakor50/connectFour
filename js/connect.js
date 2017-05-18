@@ -18,7 +18,7 @@ $("td").hover(
 
 		for (var k = 0; k < 6; k++) {
 			var c = $('#cell' + k + '-' + $(this).attr('value'));
-			c.css('background-color', 'rgba(255, 255, 255, 0.2)');
+			c.css('background-color', 'rgba(0, 0, 0, 0.2)');
 		}
 	}, 
 	function() {
@@ -159,7 +159,7 @@ function dropIn(col) {
 		// console.log("WINNER!!!!");
 		// $('#winner').append('Player ' + ((player) ? 1 : 2) + ' wins the game!');
 		$('#output').fadeOut(function() {
-  			$(this).append('<hr><h3 id="winner" class="product">Player ' + ((player) ? 1 : 2) + ' wins the game!</h3>').fadeIn();
+  			$(this).append('<hr><h3 id="winner" class="product">Player ' + ((player) ? 2 : 1) + ' wins the game!</h3>').fadeIn();
   			$(this).append('<button id="resetButton" onclick="replay()" class="btn">Play Again?</button>');
 
 		});

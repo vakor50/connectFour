@@ -32,14 +32,17 @@ $("td").hover(
 );
 
 function detectHoriz(row, col, pnum) {
-		var sequence = 0;
+	var sequence = 0;
 	for (var x = col - 3; x <= col + 3; x++) {
 		// console.log(row + " - " + x);
+		if(sequence >= 4) {
+			break;
+		}
 		if(x >= 0 && x < 7 && board[row][x] == pnum) {
 			
 			sequence++;
 		} else {
-			sequence == 0;
+			sequence = 0;
 		}
 	}
 	// console.log(sequence);
@@ -54,12 +57,15 @@ function detectVert(row, col, pnum) {
 	var sequence = 0;
 	for (var x = row - 3; x <= row + 3; x++) {
 		// console.log(x + " - " + col);
+		if(sequence >= 4) {
+			break;
+		}
 		if(x >= 0 && x < 6 && board[x][col] == pnum) {
 			
 			sequence++;
 			
 		} else {
-			sequence == 0;
+			sequence = 0;
 		}
 	}
 	// console.log(sequence);
@@ -71,14 +77,19 @@ function detectVert(row, col, pnum) {
 }
 
 function detectNWSE(row, col, pnum) {
+	// console.log(row + " , " + col + " = " + pnum);
+
 	var sequence = 0;
 	for (var x = -3; x <= 3; x++) {
+		if(sequence >= 4) {
+			break;
+		}
 		if(row + x >= 0 && row + x < 6 && col + x >= 0 && col + x < 7 && board[row + x][col + x] == pnum) {
-			// console.log((row + x) + " - " + (col + x));
+			// console.log((row + x) + " , " + (col + x));
 			sequence++;
 			
 		} else {
-			sequence == 0;
+			sequence = 0;
 		}
 	}
 	// console.log(sequence);
@@ -90,14 +101,18 @@ function detectNWSE(row, col, pnum) {
 }
 
 function detectSWNE(row, col, pnum) {
+	// console.log(row + " , " + col + " = " + pnum);
 	var sequence = 0;
 	for (var x = -3; x <= 3; x++) {
+		if(sequence >= 4) {
+			break;
+		}
 		if(row - x >= 0 && row - x < 6 && col + x >= 0 && col + x < 7 && board[row - x][col + x] == pnum) {
-			// console.log((row - x) + " - " + (col + x));
+			// console.log((row - x) + " , " + (col + x) + " --> " + (sequence + 1));
 			sequence++;
 			
 		} else {
-			sequence == 0;
+			sequence = 0;
 		}
 	}
 	// console.log(sequence);
@@ -116,16 +131,31 @@ function detectSWNE(row, col, pnum) {
 
 function detectWin(row, col, pnum) {
 	if (detectHoriz(row, col, pnum)) {
+		console.log("horizontal");
 		return true;
 	} else if (detectVert(row, col, pnum)) {
+		console.log("vertical");
 		return true;
 	} else if (detectNWSE(row, col, pnum)) {
+		console.log("NW to SE");
 		return true;
 	} else if (detectSWNE(row, col, pnum)) {
+		console.log("SW to NE");
 		return true;
 	} else {
 		return false;
 	}
+}
+
+function detectDraw(col) {
+	for (var a = 0; a < 6; a++) {
+		for (var b = 0; b < 7; b++) {
+			if (board[a][b] == 0) {
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
 function dropIn(col) {
@@ -159,11 +189,27 @@ function dropIn(col) {
 		// console.log("WINNER!!!!");
 		// $('#winner').append('Player ' + ((player) ? 1 : 2) + ' wins the game!');
 		$('#output').fadeOut(function() {
-  			$(this).append('<hr><h3 id="winner" class="product">Player ' + ((player) ? 2 : 1) + ' wins the game!</h3>').fadeIn();
+  			$(this).append('<hr id="winbar"><h3 id="winner" class="product">Player ' + ((player) ? 2 : 1) + ' wins the game!</h3>').fadeIn();
   			$(this).append('<button id="resetButton" onclick="replay()" class="btn">Play Again?</button>');
 
 		});
 
+	}
+	else if(detectDraw(c)) {
+		console.log("draw");
+		for (var m = 5; m >= 0; m--) {
+			for(var n = 0; n < 7; n++)
+			if (board[m][n] == 0) {
+				board[m][n] = 3;
+			}
+		}
+	
+		
+		$('#output').fadeOut(function() {
+  			$(this).append('<hr id="winbar"><h3 id="winner" class="product">Tie game!</h3>').fadeIn();
+  			$(this).append('<button id="resetButton" onclick="replay()" class="btn">Play Again?</button>');
+
+		});
 	}
 
 	// switch players if tile was dropped
@@ -182,6 +228,7 @@ function dropIn(col) {
 // $('#resetButton').click(function() {
 function replay() {
 	// console.log("reset?");
+	$('#winbar').remove();
 	$('#resetButton').remove();
 	$('#winner').remove();
 
